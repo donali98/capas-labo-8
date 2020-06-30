@@ -15,6 +15,7 @@ public interface ClienteDAO {
 
 	public int ejecutarProcedimientoJdbc(Integer cliente, Boolean estado);
 
+	int[][] batchInsertVehiculos(final List<Vehiculo> vehiculos);
 
 	public List<Cliente> findAll() throws DataAccessException;
 	

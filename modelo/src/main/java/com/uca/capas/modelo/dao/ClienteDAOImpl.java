@@ -1,5 +1,7 @@
 package com.uca.capas.modelo.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -16,9 +18,11 @@ import javax.persistence.criteria.Root;
 
 import com.uca.capas.modelo.domain.Cliente;
 
+import com.uca.capas.modelo.domain.Vehiculo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
@@ -91,6 +95,30 @@ public class ClienteDAOImpl implements ClienteDAO {
 		Map<String, Object> out = jdbcCall.execute(parametros);
 
 		return Integer.parseInt(out.get("P_SALIDA").toString());
+	}
+
+	@Override
+	public int[][] batchInsertVehiculos(List<Vehiculo> vehiculos) {
+		String sql = "INSERT INTO store.vehiculo "
+				+ "(c_vehiculo, s_marca, s_modelo, s_chassis, f_compra, b_estado, c_cliente) VALUES (?,?,?,?,?,?,?)";
+
+		int[][] resultado = jdbcTemplate.batchUpdate(sql, vehiculos, 1000,
+				new ParameterizedPreparedStatementSetter<Vehiculo>() {
+
+					@Override
+					public void setValues(PreparedStatement ps, Vehiculo v) throws SQLException, SQLException {
+						ps.setInt(1, v.getCvehiculo());
+						ps.setString(2, v.getSmarca());
+						ps.setString(3, v.getSmodelo());
+						ps.setString(4, v.getSchassis());
+						java.sql.Date fcompra = new java.sql.Date(v.getFcompra().getTime().getTime());
+						ps.setDate(5, fcompra);
+						ps.setBoolean(6, v.getBestado());
+						ps.setInt(7, v.getCcliente());
+					}
+				});
+
+		return resultado;
 	}
 
 	@Override

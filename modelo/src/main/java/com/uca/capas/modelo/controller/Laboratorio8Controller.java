@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Controller
@@ -77,6 +79,18 @@ public class Laboratorio8Controller {
 			mav.addObject("resultado", key);
 			mav.setViewName("Laboratorio/agregarCliente");
 		}
+		return mav;
+	}
+	@RequestMapping("/batchVehiculo")
+	public ModelAndView insercionBatch() throws ParseException {
+		ModelAndView mav = new ModelAndView();
+		long startTime = System.nanoTime();
+		clienteService.cargaMasiva();
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime) / 1000000;
+		logger.log(Level.INFO, "Duracion del metodo -> {0} milisegundos", duration);
+		mav.setViewName("Laboratorio/resultado");
+
 		return mav;
 	}
 }

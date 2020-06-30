@@ -16,6 +16,7 @@ public interface ClienteService {
 	int insertClienteAutoId( Cliente c);
 	void updateCliente(Cliente c);
 	int ejecutarProcJdbc(Integer cliente,Boolean estado);
+	int[][] cargaMasiva() throws ParseException;
 
 	public List<Cliente> findAll() throws DataAccessException;
 
