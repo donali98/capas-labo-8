@@ -8,7 +8,14 @@ import com.uca.capas.modelo.domain.Cliente;
 import com.uca.capas.modelo.domain.Vehiculo;
 
 public interface ClienteDAO {
-	
+
+	public int insertClienteAutoId(Cliente c);
+
+	public void updateCliente(Cliente c);
+
+	public int ejecutarProcedimientoJdbc(Integer cliente, Boolean estado);
+
+
 	public List<Cliente> findAll() throws DataAccessException;
 	
 	public Cliente findOne(Integer codigo) throws DataAccessException;

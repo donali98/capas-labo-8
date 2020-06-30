@@ -43,6 +43,21 @@ public class ClienteServiceImpl implements ClienteService {
 	@PersistenceContext(unitName = "modelo-persistence")
 	EntityManager entityManager;
 
+	@Override
+	public int insertClienteAutoId(Cliente c) {
+		return clienteDao.insertClienteAutoId(c);
+	}
+
+	@Override
+	public void updateCliente(Cliente c) {
+		clienteDao.updateCliente(c);
+	}
+
+	@Override
+	public int ejecutarProcJdbc(Integer cliente, Boolean estado) {
+		return clienteDao.ejecutarProcedimientoJdbc(cliente, estado);
+	}
+
 	public List<Cliente> findAll() throws DataAccessException {
 		return clienteRepository.findAll();
 	}

@@ -12,7 +12,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 public interface ClienteService {
-	
+
+	int insertClienteAutoId( Cliente c);
+	void updateCliente(Cliente c);
+	int ejecutarProcJdbc(Integer cliente,Boolean estado);
+
 	public List<Cliente> findAll() throws DataAccessException;
 
 	public List<Cliente> findAll(Sort sort);

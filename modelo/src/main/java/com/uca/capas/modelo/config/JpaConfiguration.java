@@ -60,7 +60,7 @@ public class JpaConfiguration {
 		 */
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/ventasng");
 		dataSource.setUsername("postgres");
-		dataSource.setPassword("root");
+		dataSource.setPassword("1234");
 		
 		return dataSource;
 	}
